@@ -1,11 +1,8 @@
-# docker-compose.yml — versão “atual” (Compose v2 já detecta o esquema automaticamente)
 services:
   php:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8083:80"
+    build: .
+    expose:              # apenas “mostra” a porta 80 à rede interna/Traefik
+      - "80"
     volumes:
       - ./site:/var/www/html
     depends_on:
@@ -19,16 +16,20 @@ services:
   mysql:
     image: mysql:8.0
     restart: always
+    expose:
+      - "3306"           # acessível só para outros containers
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: login_db
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
-    ports:
-      - "3311:3306"      # deixe só se precisar acessar o DB externamente
     volumes:
       - db_data:/var/lib/mysql
       - ./initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uuser", "-ppass"]
+      interval: 10s
+      retries: 5
 
 volumes:
   db_data:
