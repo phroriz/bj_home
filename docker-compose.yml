@@ -2,35 +2,36 @@ version: "3.8"
 
 services:
   php:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # container_name: php_app           # ← remova: o Compose cria um nome previsível
+    ports:
+      - "8083:80"                       # host:container
+    volumes:
+      - ./site:/var/www/html            # código (ou tire em produção)
     depends_on:
       - mysql
     environment:
-      DB_HOST: mysql              #  ← nome do serviço
+      DB_HOST: mysql                    # <- use estes campos no seu código ou .env
       DB_NAME: login_db
       DB_USER: user
       DB_PASS: pass
-    volumes:
-      - ./site:/var/www/html      # ok para dev
-    ports:
-      - "8083:80"
 
   mysql:
     image: mysql:8.0
-    restart: unless-stopped
+    # container_name: mysql_db          # ← remova
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: login_db
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
+    ports:
+      - "3311:3306"                     # opcional expor na máquina
     volumes:
       - db_data:/var/lib/mysql
       - ./initdb:/docker-entrypoint-initdb.d
-    healthcheck:                  # garante que o PHP espere o banco
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
 volumes:
   db_data:
