@@ -1,26 +1,23 @@
-version: "3.8"
-
+# docker-compose.yml — versão “atual” (Compose v2 já detecta o esquema automaticamente)
 services:
   php:
     build:
       context: .
       dockerfile: Dockerfile
-    # container_name: php_app           # ← remova: o Compose cria um nome previsível
     ports:
-      - "8083:80"                       # host:container
+      - "8083:80"
     volumes:
-      - ./site:/var/www/html            # código (ou tire em produção)
+      - ./site:/var/www/html
     depends_on:
       - mysql
     environment:
-      DB_HOST: mysql                    # <- use estes campos no seu código ou .env
+      DB_HOST: mysql
       DB_NAME: login_db
       DB_USER: user
       DB_PASS: pass
 
   mysql:
     image: mysql:8.0
-    # container_name: mysql_db          # ← remova
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -28,7 +25,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
     ports:
-      - "3311:3306"                     # opcional expor na máquina
+      - "3311:3306"      # deixe só se precisar acessar o DB externamente
     volumes:
       - db_data:/var/lib/mysql
       - ./initdb:/docker-entrypoint-initdb.d
