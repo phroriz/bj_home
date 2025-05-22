@@ -2,7 +2,7 @@
 session_start();
 
 // Conexão com banco de dados MySQL (ajuste conforme seu Docker)
-$host = 'mysql'; // Nome do serviço no docker-compose
+$host = 'bj_mysql'; // Nome do serviço no docker-compose
 $db = 'login_db';
 $user = 'user';
 $password = 'pass';
