@@ -3,8 +3,8 @@ session_start();
 
 // Se não estiver autenticado, redireciona para login
 if (!isset($_SESSION["autenticado"]) || $_SESSION["autenticado"] !== true) {
-    header("Location: login.php");
-    exit;
+  //  header("Location: login.php");
+   // exit;
 }
 ?>
 
