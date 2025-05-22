@@ -107,14 +107,14 @@ if (!isset($_SESSION["autenticado"]) || $_SESSION["autenticado"] !== true) {
 
      <!-- Balões de ação -->
 <div class="d-flex justify-content-center gap-4 mt-4">
-    <a href="http://roriz.ddns.net:8085/" class="text-decoration-none" target="_blank" rel="noopener noreferrer">
+    <a href="http://bj.cloud.phz.one/" class="text-decoration-none" target="_blank" rel="noopener noreferrer">
         <div class="action-box">
             <i class="bi bi-download"></i> <!-- Ícone de Download -->
             <p>Baixar Arquivos</p>
         </div>
     </a>
 
-    <a href="http://roriz.ddns.net:8081/guacamole/#/" class="text-decoration-none" target="_blank" rel="noopener noreferrer">
+    <a href="http://bj.rdp.phz.one/" class="text-decoration-none" target="_blank" rel="noopener noreferrer">
         <div class="action-box">
             <i class="bi bi-pc"></i> <!-- Ícone de PC -->
             <p>Abrir RDP</p>
